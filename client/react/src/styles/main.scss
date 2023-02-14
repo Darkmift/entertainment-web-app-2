@@ -1,0 +1,14 @@
+@import './base/variables';
+@import './fonts/index';
+
+* {
+    box-sizing: border-box;
+    font-family: 'outfit-light';
+    color: $white;
+}
+
+html,
+body {
+    background-color: $darkBlue;
+    font-size: $textSizeM;
+}
