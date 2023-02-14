@@ -17,3 +17,24 @@ $textSizeXL: 32px;
 $deskTopWidth: 1440px;
 $tabletWidth: 768px;
 $mobileWidth: 218px;
+
+@mixin css-vars {
+    --orange: #{$orange};
+    --black: #{$black};
+    --blue-gray: #{$blueGray};
+    --dark-blue: #{$darkBlue};
+    --white: #{$white};
+    --light-text: #{$lightText};
+    --medium-text: #{$mediumText};
+    --text-size-sm: #{$textSizeSm};
+    --text-size-s: #{$textSizeS};
+    --text-size-m: #{$textSizeM};
+    --text-size-l: #{$textSizeL};
+    --text-size-xl: #{$textSizeXL};
+    --desk-top-width: #{$deskTopWidth};
+    --tablet-width: #{$tabletWidth};
+    --mobile-width: #{$mobileWidth};
+    --desk-top-width: #{$deskTopWidth};
+    --tablet-width: #{$tabletWidth};
+    --mobile-width: #{$mobileWidth};
+}

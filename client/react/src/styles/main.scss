@@ -1,6 +1,10 @@
 @import './base/variables';
 @import './fonts/index';
 
+:root {
+    @include css-vars;
+}
+
 * {
     box-sizing: border-box;
     font-family: 'outfit-light';
