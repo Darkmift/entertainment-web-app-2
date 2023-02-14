@@ -15,7 +15,14 @@ function App() {
 
     return (
         <div className="App">
-            <div style={{ padding: '3vmin' }}>
+            <div
+                style={{
+                    padding: '3vmin',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '24px',
+                }}
+            >
                 <h1>Hi</h1>
 
                 <UiInputField
@@ -23,7 +30,7 @@ function App() {
                     name="name"
                     value={value}
                     changeHandler={handleNameChange}
-                    errorText={'sdfd'}
+                    errorText={`Can't be empty`}
                 />
                 <UiInputField
                     label="Name"

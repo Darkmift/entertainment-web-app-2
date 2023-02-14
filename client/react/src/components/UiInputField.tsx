@@ -25,12 +25,11 @@ const InputContainer = styled.div<ContainerProps>`
                 : '--blue-gray'}
     );
     display: flex;
-    /* flex-direction: column; */
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 17px;
     border-bottom: 1px solid var(--input-color);
     color: var(--input-color);
+    padding-bottom: 17px;
 
     &:focus-within {
         --input-color: var(
@@ -41,7 +40,7 @@ const InputContainer = styled.div<ContainerProps>`
     .error-text {
         color: var(--input-color);
         pointer-events: none;
-        padding-right: 17px;
+        margin-right: 17px;
     }
 `
 
@@ -49,7 +48,6 @@ const Input = styled.input`
     padding: 8px;
     font-size: 16px;
     padding-left: 16px;
-    /* padding-bottom: 17px; */
     border: none;
     background-color: transparent;
     color: var(--input-color);
