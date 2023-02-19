@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import styled from 'styled-components'
+import React from 'react'
+import styled, { CSSObject } from 'styled-components'
 import { uuid } from '../utils/uuid'
 
 type Props = {
@@ -8,10 +8,13 @@ type Props = {
     changeHandler?: (value: string) => void
     value: string
     errorText?: string
+    type?: 'text' | 'number' | 'password'
+    wrapperStyle?: CSSObject
 }
 type ContainerProps = {
     value: string
     errorText?: string
+    wrapperStyle?: CSSObject
 }
 
 const InputContainer = styled.div<ContainerProps>`
@@ -41,10 +44,13 @@ const InputContainer = styled.div<ContainerProps>`
         pointer-events: none;
         margin-right: 17px;
     }
+
+    ${(props) => {
+        return props.wrapperStyle
+    }}
 `
 
 const Input = styled.input`
-    padding: 8px;
     font-size: 16px;
     padding-left: 16px;
     border: none;
@@ -53,6 +59,8 @@ const Input = styled.input`
     outline: none;
     font-weight: 300;
     width: 65%;
+    font-size: var(--text-size-s);
+    line-height: 19px;
 `
 
 const UiInputField = ({
@@ -60,6 +68,8 @@ const UiInputField = ({
     label,
     name,
     value,
+    wrapperStyle,
+    type = 'text',
     changeHandler,
 }: Props) => {
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -71,13 +81,18 @@ const UiInputField = ({
     }
 
     return (
-        <InputContainer value={value} errorText={errorText}>
+        <InputContainer
+            wrapperStyle={wrapperStyle}
+            value={value}
+            errorText={errorText}
+        >
             <Input
+                className="input-field"
                 data-error-text="H"
                 id={uuid() + '-' + name}
                 placeholder={label}
                 name={name}
-                type="text"
+                type={type}
                 value={value}
                 onInput={handleChange}
             />

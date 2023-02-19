@@ -2,13 +2,18 @@ import React from 'react'
 import styled from 'styled-components'
 
 type Props = {
-    text: string
     className?: string
     clickHandler: React.MouseEventHandler<HTMLButtonElement>
     variant?: 'white' | 'orange'
+    children: React.ReactNode
 }
 
-function UnstyledButton({ className, text, clickHandler, variant='orange' }: Props) {
+function UnstyledButton({
+    className,
+    children,
+    clickHandler,
+    variant = 'orange',
+}: Props) {
     return (
         <button
             onClick={clickHandler}
@@ -16,7 +21,7 @@ function UnstyledButton({ className, text, clickHandler, variant='orange' }: Pro
                 variant === 'white' ? 'white' : 'orange'
             }`}
         >
-            {text}
+            {children}
         </button>
     )
 }
@@ -27,6 +32,7 @@ const UiButton = styled(UnstyledButton)`
         height: 48px;
         border: none;
         border-radius: 6px;
+        padding: 15px;
     }
     &.ui-button-variant-orange {
         background-color: var(--orange);
