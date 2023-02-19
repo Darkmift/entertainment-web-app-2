@@ -1,13 +1,23 @@
-import React from 'react'
 import SVGIcon from '../components/SVGIcon'
+import styled from 'styled-components'
 
 type Props = {}
 
+const HomeContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`
+
 function Home({}: Props) {
     return (
-        <div>
-            <SVGIcon iconName="clip" /*svgProp={{ fill: '#ccc' }} */ />
-        </div>
+        <HomeContainer>
+            <SVGIcon
+                iconName="clip"
+                wrapperStyle={{ marginTop: '78px' }}
+                // svgProp={{ fill: '#ccc' }}
+            />
+        </HomeContainer>
     )
 }
 
