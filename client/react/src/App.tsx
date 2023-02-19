@@ -1,21 +1,18 @@
-import { useState } from 'react'
-import UiButton from './components/UiButton'
-import UiInputField from './components/UiInputField'
 
 function App() {
-    const [value, setValue] = useState('')
+    // const [value, setValue] = useState('')
 
-    const handleNameChange: (value: string) => void = (event) => {
-        setValue(event)
-        console.log(
-            '🚀 ~ file: App.tsx:11 ~ handleNameChange ~ event.target.value',
-            event
-        )
-    }
+    // const handleNameChange: (value: string) => void = (event) => {
+    //     setValue(event)
+    //     console.log(
+    //         '🚀 ~ file: App.tsx:11 ~ handleNameChange ~ event.target.value',
+    //         event
+    //     )
+    // }
 
     return (
         <div className="App">
-            <div
+            {/* <div
                 style={{
                     padding: '3vmin',
                     display: 'flex',
@@ -53,7 +50,7 @@ function App() {
                         console.log(evt)
                     }}
                 />
-            </div>
+            </div> */}
         </div>
     )
 }
