@@ -1,48 +1,65 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled, { CSSObject } from 'styled-components'
 import { uuid } from '../utils/uuid'
 
 type Props = {
     label: string
     name: string
-    changeHandler?: (value: string) => void
+    changeHandler?: ({ name, value }: { name: string; value: string }) => void
     value: string
     errorText?: string
     type?: 'text' | 'number' | 'password'
     wrapperStyle?: CSSObject
 }
+
 type ContainerProps = {
     value: string
     errorText?: string
     wrapperStyle?: CSSObject
+    touched: boolean
 }
 
 const InputContainer = styled.div<ContainerProps>`
-    --input-color: var(
-        ${(props) =>
-            props.errorText?.length
+    --input-border-color: var(
+        ${({ touched, value, errorText }) =>
+            value.length
+                ? '--blue-gray'
+                : touched && errorText?.length
                 ? '--orange'
-                : props.value.length
-                ? '--white'
                 : '--blue-gray'}
+    );
+    --input-text-color: var(
+        ${({ touched, value, errorText }) =>
+            value.length
+                ? '--white'
+                : touched && errorText?.length
+                ? '--orange'
+                : '--white'}
     );
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-bottom: 1px solid var(--input-color);
-    color: var(--input-color);
-    padding-bottom: 17px;
+    border-bottom: 1px solid var(--input-border-color);
+    color: var(--input-text-color);
+    padding: 0 17px 17px 16px;
+
+    font-size: var(--text-size-s);
+    line-height: 19px;
 
     &:focus-within {
-        --input-color: var(
-            ${(props) => (props.errorText ? '--orange' : '--white')}
+        --input-border-color: var(
+            ${({ touched, value, errorText }) =>
+                value.length
+                    ? '--white'
+                    : touched && errorText?.length
+                    ? '--orange'
+                    : '--white'}
         );
     }
 
     .error-text {
         color: var(--input-color);
         pointer-events: none;
-        margin-right: 17px;
     }
 
     ${(props) => {
@@ -52,19 +69,16 @@ const InputContainer = styled.div<ContainerProps>`
 
 const Input = styled.input`
     font-size: 16px;
-    padding-left: 16px;
     border: none;
     background-color: transparent;
     color: var(--input-color);
     outline: none;
     font-weight: 300;
     width: 65%;
-    font-size: var(--text-size-s);
-    line-height: 19px;
 `
 
 const UiInputField = ({
-    errorText,
+    errorText = "Can't be empty",
     label,
     name,
     value,
@@ -72,11 +86,12 @@ const UiInputField = ({
     type = 'text',
     changeHandler,
 }: Props) => {
+    const [touched, setTouched] = useState(false)
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const newValue = event.target.value
+        const value = event.target.value
 
         if (changeHandler) {
-            changeHandler(newValue)
+            changeHandler({ name, value })
         }
     }
 
@@ -85,8 +100,10 @@ const UiInputField = ({
             wrapperStyle={wrapperStyle}
             value={value}
             errorText={errorText}
+            touched={touched}
         >
             <Input
+                onClick={() => setTouched(true)}
                 className="input-field"
                 data-error-text="H"
                 id={uuid() + '-' + name}
@@ -96,7 +113,10 @@ const UiInputField = ({
                 value={value}
                 onInput={handleChange}
             />
-            {errorText && <span className="error-text">{errorText}</span>}
+
+            <span className="error-text">
+                {touched && value.length === 0 ? errorText : ''}
+            </span>
         </InputContainer>
     )
 }

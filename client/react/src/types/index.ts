@@ -1,4 +1,5 @@
 export * from './media'
 export * from './user'
 
-export type CSSObject = { [key: string]: string }
+export type BasicAttrObject = { [key: string]: string }
+export type CSSObject = BasicAttrObject
