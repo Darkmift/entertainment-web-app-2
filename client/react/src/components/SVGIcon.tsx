@@ -18,7 +18,7 @@ function SvgIcon({ iconName, wrapperStyle, svgProp, className = '' }: IProps) {
                     style={wrapperStyle ? wrapperStyle : {}}
                     className={
                         className.length
-                            ? 'svg-wrapper' + className
+                            ? 'svg-wrapper ' + className
                             : 'svg-wrapper'
                     }
                 >
