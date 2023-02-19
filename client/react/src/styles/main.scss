@@ -12,8 +12,19 @@
     font-weight: 300;
 }
 
+h1,
+p {
+    padding: 0;
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+    color: $orange;
+}
+
 html,
 body {
-    background-color: $darkBlue;
+    background-color: $black;
     font-size: $textSizeM;
 }
