@@ -3,6 +3,8 @@ import styled from 'styled-components'
 import UiButton from 'components/UiButton'
 import UiInputField from 'components/UiInputField'
 import { Link } from 'react-router-dom'
+import { useState } from 'react'
+import { BasicAttrObject } from 'types'
 
 type Props = {}
 
@@ -33,6 +35,16 @@ const HomeContainer = styled.div`
 `
 
 function Register({}: Props) {
+    const [formData, setFormData] = useState({
+        email: '',
+        password: '',
+        repeatPassword: '',
+    })
+
+    const handleNameChange = ({ name, value }: BasicAttrObject) => {
+        setFormData({ ...formData, [name]: value })
+    }
+
     return (
         <HomeContainer>
             <SVGIcon
@@ -45,32 +57,25 @@ function Register({}: Props) {
                 <UiInputField
                     wrapperStyle={{ marginTop: '40px' }}
                     label="Email address"
-                    name="name"
-                    value={''}
-                    changeHandler={(evt) => {
-                        console.log(evt)
-                    }}
-                    errorText={''}
+                    name="email"
+                    value={formData.email}
+                    changeHandler={handleNameChange}
                 />
                 <UiInputField
                     wrapperStyle={{ marginTop: '24px' }}
                     label="Password"
-                    name="name"
-                    value={''}
-                    changeHandler={(evt) => {
-                        console.log(evt)
-                    }}
-                    errorText={''}
+                    name="password"
+                    type="password"
+                    value={formData.password}
+                    changeHandler={handleNameChange}
                 />
                 <UiInputField
                     wrapperStyle={{ marginTop: '24px', marginBottom: '24px' }}
                     label="Repeat Password"
-                    name="name"
-                    value={''}
-                    changeHandler={(evt) => {
-                        console.log(evt)
-                    }}
-                    errorText={''}
+                    name="repeatPassword"
+                    type="password"
+                    value={formData.repeatPassword}
+                    changeHandler={handleNameChange}
                 />
                 <UiButton
                     clickHandler={(evt) => {
