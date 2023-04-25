@@ -2,6 +2,7 @@ import IconPanel from 'components/IconPanel'
 import styled from 'styled-components'
 import { SetStateAction, useState } from 'react'
 import { CategoryName } from 'types'
+import SearchBar from 'components/SearchBar'
 
 type Props = {}
 
@@ -12,11 +13,15 @@ const HomeContainer = styled.div`
 
     .media-browser {
         background-color: var(--dark-blue);
+        flex: 1;
     }
 `
 
 function Home({}: Props) {
     const [category, setCategory] = useState<CategoryName>('all-media')
+
+    const [searchText, setSearchText] = useState('')
+
     return (
         <HomeContainer>
             <IconPanel
@@ -26,7 +31,12 @@ function Home({}: Props) {
                     setCategory(categoryName as SetStateAction<CategoryName>)
                 }}
             />
-            <div className="media-browser">MEDIA AREA</div>
+            <div className="media-browser">
+                <SearchBar
+                    searchText={searchText}
+                    onSearchTextChange={setSearchText}
+                />
+            </div>
         </HomeContainer>
     )
 }
