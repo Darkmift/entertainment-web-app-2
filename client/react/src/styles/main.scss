@@ -5,6 +5,9 @@
     @include css-vars;
 }
 
+*::-webkit-scrollbar {
+    display: none;
+}
 * {
     box-sizing: border-box;
     font-family: 'outfit-light';

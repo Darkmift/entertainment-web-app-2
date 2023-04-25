@@ -10,7 +10,7 @@ type Props = {
 const Wrapper = styled.div`
     display: flex;
     align-items: center;
-    padding: 32px 0 0 32px;
+    padding: 32px 0 34px 0;
     gap: 24px;
     input {
         font-size: 24px;
