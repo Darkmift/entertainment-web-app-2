@@ -1,13 +1,16 @@
 import useDynamicImageImport from '../../hooks/useDynamicImageImport'
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { Media } from 'types'
 import SVGIcon from 'components/SVGIcon'
 
-type Props = { item: Media }
+type Props = {
+    item: Media
+}
 type StyledProps = Props & { bgImage: string }
 
 const Card = styled.div<StyledProps>`
+    margin-right: 40px;
     display: flex;
     flex-direction: column;
     min-width: 470px;
@@ -79,15 +82,25 @@ const Card = styled.div<StyledProps>`
 `
 
 function TrendingCard({ item }: Props) {
-    const bgImage = useDynamicImageImport(item.thumbnail.trending.large)
+    const bgImage = useDynamicImageImport(
+        item.thumbnail?.trending?.large || item.thumbnail?.regular?.large
+    )
+    const [isTrending, setIsrending] = useState(item.isTrending)
+
+    const trendingToggle = () => setIsrending(!isTrending)
 
     return (
         <Card item={item} bgImage={bgImage}>
-            <span className="media-favorite-icon-wrapper">
+            <span
+                className="media-favorite-icon-wrapper"
+                onClick={trendingToggle}
+            >
                 <SVGIcon
                     className="media-favorite-icon"
                     svgProp={{ width: '12px', height: '12px' }}
-                    iconName="bookmark-unchecked"
+                    iconName={
+                        isTrending ? 'bookmark-checked' : 'bookmark-unchecked'
+                    }
                 />
             </span>
             <div className="media-details">
