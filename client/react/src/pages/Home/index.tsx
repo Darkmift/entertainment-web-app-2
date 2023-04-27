@@ -5,8 +5,16 @@ import { CategoryName, Media } from 'types'
 import SearchBar from 'components/SearchBar'
 import TrendingList from './TrendingList'
 import mediaJson from '@/mock/data.json'
+import RecommendedList from './RecommendedList'
+import FadeInOut from '@/components/FadeInOut'
 
 const items = mediaJson as Media[]
+const CategoryMapper = {
+    series: 'TV Series',
+    movies: 'Movie',
+    'all-media': 'all-media',
+    favorites: 'favorites',
+}
 
 type Props = {}
 
@@ -17,31 +25,67 @@ const HomeContainer = styled.div`
 
     .media-browser {
         width: 80vw;
-        /* background-color: var(--dark-blue); */
         flex: 1;
     }
 `
 
 function Home({}: Props) {
     const [category, setCategory] = useState<CategoryName>('all-media')
-
     const [searchText, setSearchText] = useState('')
 
     return (
         <HomeContainer>
             <IconPanel
                 category={category}
-                onIconClick={(categoryName: string) => {
-                    console.log('icon set', { iconName: categoryName })
+                onIconClick={(categoryName: CategoryName) =>
                     setCategory(categoryName as SetStateAction<CategoryName>)
-                }}
+                }
             />
             <div className="media-browser">
                 <SearchBar
                     searchText={searchText}
                     onSearchTextChange={setSearchText}
                 />
-                <TrendingList items={items} />
+
+                <FadeInOut condition={category === 'all-media'}>
+                    <TrendingList items={items} />
+                </FadeInOut>
+
+                <FadeInOut condition={category === 'favorites'}>
+                    <>
+                        <RecommendedList
+                            mode={'favorites movies'}
+                            items={items.filter(
+                                (item) =>
+                                    item.isBookmarked &&
+                                    item.category === CategoryMapper.movies
+                            )}
+                        />
+                        <RecommendedList
+                            mode={'favorites series'}
+                            items={items.filter(
+                                (item) =>
+                                    item.isBookmarked &&
+                                    item.category === CategoryMapper.series
+                            )}
+                        />
+                    </>
+                </FadeInOut>
+
+                <FadeInOut condition={category != 'favorites'}>
+                    <RecommendedList
+                        mode={category}
+                        items={
+                            category === 'all-media'
+                                ? items
+                                : items.filter(
+                                      (item) =>
+                                          item.category ===
+                                          CategoryMapper[category]
+                                  )
+                        }
+                    />
+                </FadeInOut>
             </div>
         </HomeContainer>
     )

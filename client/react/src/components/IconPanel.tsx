@@ -5,7 +5,7 @@ import userLogo from '../assets/images/portfolio.png'
 import { CategoryName } from 'types'
 
 type Props = {
-    onIconClick: (iconName: string) => void
+    onIconClick: (iconName: CategoryName) => void
     category: CategoryName
 }
 type WrapperProps = {
@@ -48,7 +48,7 @@ const PanelWrapper = styled.div<WrapperProps>`
 `
 
 function IconPanel({ onIconClick, category }: Props) {
-    const clickedIconHandler = (iconName: string) => {
+    const clickedIconHandler = (iconName: CategoryName) => {
         onIconClick(iconName)
     }
 
@@ -69,7 +69,9 @@ function IconPanel({ onIconClick, category }: Props) {
                             <span
                                 key={i}
                                 onClick={(e) =>
-                                    clickedIconHandler(categoryName)
+                                    clickedIconHandler(
+                                        categoryName as CategoryName
+                                    )
                                 }
                             >
                                 <SVGIcon
