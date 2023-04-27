@@ -1,13 +1,14 @@
 import useDynamicImageImport from '../../hooks/useDynamicImageImport'
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { Media } from 'types'
+import { Media, MediaItemHandler } from 'types'
 import SVGIcon from 'components/SVGIcon'
 
 type Props = {
     item: Media
+    handleItemClick: MediaItemHandler
 }
-type StyledProps = Props & { bgImage: string }
+type StyledProps = { bgImage: string }
 
 const Card = styled.div<StyledProps>`
     margin-right: 40px;
@@ -22,6 +23,13 @@ const Card = styled.div<StyledProps>`
     justify-content: space-between;
     border-radius: 8px;
     cursor: pointer;
+
+    @media (max-width: 375px) {
+        min-width: 240px;
+        min-height: 140px;
+        padding: 8px;
+        margin-right: 16px;
+    }
 
     .media-details {
         display: flex;
@@ -58,6 +66,10 @@ const Card = styled.div<StyledProps>`
         .media-title {
             font-size: 24px;
             font-weight: 500;
+
+            @media (max-width: 375px) {
+                font-size: 15px;
+            }
         }
     }
     .media-favorite-icon-wrapper {
@@ -81,25 +93,24 @@ const Card = styled.div<StyledProps>`
     }
 `
 
-function TrendingCard({ item }: Props) {
+function TrendingCard({ item, handleItemClick }: Props) {
     const bgImage = useDynamicImageImport(
         item.thumbnail?.trending?.large || item.thumbnail?.regular?.large
     )
-    const [isTrending, setIsrending] = useState(item.isTrending)
-
-    const trendingToggle = () => setIsrending(!isTrending)
 
     return (
-        <Card item={item} bgImage={bgImage}>
+        <Card bgImage={bgImage}>
             <span
                 className="media-favorite-icon-wrapper"
-                onClick={trendingToggle}
+                onClick={(e) => handleItemClick(item)}
             >
                 <SVGIcon
                     className="media-favorite-icon"
                     svgProp={{ width: '12px', height: '12px' }}
                     iconName={
-                        isTrending ? 'bookmark-checked' : 'bookmark-unchecked'
+                        item.isBookmarked
+                            ? 'bookmark-checked'
+                            : 'bookmark-unchecked'
                     }
                 />
             </span>

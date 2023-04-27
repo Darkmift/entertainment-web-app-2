@@ -2,23 +2,45 @@ import { Media } from '@/types'
 import styled from 'styled-components'
 import RecommendedCard from './RecommendedCard'
 
-type Props = { mode: string; items: Media[]; searchText?: string }
+type Props = {
+    mode: string
+    items: Media[]
+    searchText?: string
+    handleFavoriteToggle: (item: Media) => void
+}
 
 const ListContainer = styled.div`
     margin-top: 40px;
     display: flex;
     flex-direction: column;
     gap: 32px;
+    @media (max-width: 768px) {
+        gap: 29px;
+    }
+    @media (max-width: 375px) {
+        margin-top: 10px;
+        gap: 0px;
+        padding: 0px 16px;
+        font-size: 10px;
+    }
     .recommended-media-list {
         padding-top: 25px;
         display: flex;
         flex-wrap: wrap;
         gap: 40px;
         overflow-y: scroll;
+        @media (max-width: 375px) {
+            gap: 15px;
+        }
     }
 `
 
-function RecommendedList({ mode, items, searchText = '' }: Props) {
+function RecommendedList({
+    mode,
+    items,
+    searchText = '',
+    handleFavoriteToggle,
+}: Props) {
     let title = ''
 
     switch (mode) {
@@ -44,7 +66,7 @@ function RecommendedList({ mode, items, searchText = '' }: Props) {
     }
 
     if (searchText.length > 0) {
-        title = `Found ${items.length} results for ${searchText}`
+        title = `Found ${items.length} results for "${searchText}"`
     }
 
     return (
@@ -52,7 +74,11 @@ function RecommendedList({ mode, items, searchText = '' }: Props) {
             <h1>{title}</h1>
             <div className="recommended-media-list">
                 {items.map((item, index) => (
-                    <RecommendedCard key={index} item={item} />
+                    <RecommendedCard
+                        handleFavoriteToggle={handleFavoriteToggle}
+                        key={index}
+                        item={item}
+                    />
                 ))}
             </div>
         </ListContainer>

@@ -8,7 +8,7 @@ import mediaJson from '@/mock/data.json'
 import RecommendedList from './RecommendedList'
 import FadeInOut from '@/components/FadeInOut'
 
-const items = mediaJson as Media[]
+const media = mediaJson as Media[]
 const CategoryMapper = {
     series: 'TV Series',
     movies: 'Movie',
@@ -27,11 +27,34 @@ const HomeContainer = styled.div`
         width: 80vw;
         flex: 1;
     }
+
+    @media (max-width: 768px) {
+        flex-direction: column;
+        padding: 23px 25px 24px 24px;
+        .media-browser {
+            width: 100vw;
+        }
+    }
+
+    @media (max-width: 375px) {
+        padding: 0px;
+    }
 `
 
 function Home({}: Props) {
     const [category, setCategory] = useState<CategoryName>('all-media')
     const [searchText, setSearchText] = useState('')
+    const [items, setItems] = useState<Media[]>(media)
+
+    const handleFavoriteToggle = (item: Media) => {
+        const newMedia = structuredClone(items)
+        newMedia.forEach((target) => {
+            if (target.title === item.title) {
+                target.isBookmarked = !target.isBookmarked
+            }
+        })
+        setItems(newMedia)
+    }
 
     return (
         <HomeContainer>
@@ -49,12 +72,16 @@ function Home({}: Props) {
                 {searchText.length < 1 ? (
                     <>
                         <FadeInOut condition={category === 'all-media'}>
-                            <TrendingList items={items} />
+                            <TrendingList
+                                handleFavoriteToggle={handleFavoriteToggle}
+                                items={items.filter((item) => item.isTrending)}
+                            />
                         </FadeInOut>
 
                         <FadeInOut condition={category === 'favorites'}>
                             <>
                                 <RecommendedList
+                                    handleFavoriteToggle={handleFavoriteToggle}
                                     mode={'favorites movies'}
                                     items={items.filter(
                                         (item) =>
@@ -64,6 +91,7 @@ function Home({}: Props) {
                                     )}
                                 />
                                 <RecommendedList
+                                    handleFavoriteToggle={handleFavoriteToggle}
                                     mode={'favorites series'}
                                     items={items.filter(
                                         (item) =>
@@ -77,6 +105,7 @@ function Home({}: Props) {
 
                         <FadeInOut condition={category != 'favorites'}>
                             <RecommendedList
+                                handleFavoriteToggle={handleFavoriteToggle}
                                 mode={category}
                                 items={
                                     category === 'all-media'
@@ -93,6 +122,7 @@ function Home({}: Props) {
                 ) : (
                     <FadeInOut condition={searchText.length > 0}>
                         <RecommendedList
+                            handleFavoriteToggle={handleFavoriteToggle}
                             mode={category}
                             searchText={searchText}
                             items={items.filter((item) =>

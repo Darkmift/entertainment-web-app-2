@@ -12,12 +12,28 @@ const Wrapper = styled.div`
     align-items: center;
     padding: 32px 0 34px 0;
     gap: 24px;
+    @media (max-width: 375px) {
+        padding: 24px 16px;
+    }
+    svg {
+        width: 32px;
+        height: 32px;
+        @media (max-width: 375px) {
+            width: 24px;
+            height: 24px;
+        }
+    }
     input {
         font-size: 24px;
+
         line-height: 30.24px;
         background-color: transparent;
         border: none;
         width: 100%;
+
+        @media (max-width: 375px) {
+            font-size: 16px;
+        }
     }
 `
 

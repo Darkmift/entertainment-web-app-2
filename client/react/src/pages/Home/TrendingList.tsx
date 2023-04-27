@@ -1,18 +1,25 @@
 import useDrag from '@/hooks/useDrag'
 import { useState } from 'react'
 import styled from 'styled-components'
-import { Media } from 'types'
+import { Media, MediaItemHandler } from 'types'
 import TrendingCard from './TrendingCard'
 
 import { ScrollMenu, VisibilityContext } from 'react-horizontal-scrolling-menu'
 import 'react-horizontal-scrolling-menu/dist/styles.css'
 
-type Props = { items: Media[] }
+type Props = { items: Media[]; handleFavoriteToggle: MediaItemHandler }
 
 const ListContainer = styled.div`
     display: flex;
     flex-direction: column;
     gap: 25px;
+
+    @media (max-width: 375px) {
+        padding: 24px 16px;
+        gap: 15px;
+        font-size: 20px;
+    }
+
     .trending-media-list {
         padding-top: 25px;
         display: flex;
@@ -37,17 +44,9 @@ function onWheel(apiObj: scrollVisibilityApiType, ev: React.WheelEvent): void {
     }
 }
 
-function TrendingList({ items }: Props) {
+function TrendingList({ items, handleFavoriteToggle }: Props) {
     const { dragStart, dragStop, dragMove, dragging } = useDrag()
 
-    const [selected, setSelected] = useState<string>('')
-
-    const handleItemClick = (itemId: string) => () => {
-        if (dragging) {
-            return false
-        }
-        setSelected(selected !== itemId ? itemId : '')
-    }
     const handleDrag =
         ({ scrollContainer }: scrollVisibilityApiType) =>
         (ev: React.MouseEvent) =>
@@ -67,7 +66,11 @@ function TrendingList({ items }: Props) {
                 onMouseMove={handleDrag}
             >
                 {items.map((item, index) => (
-                    <TrendingCard key={index} item={item} />
+                    <TrendingCard
+                        handleItemClick={handleFavoriteToggle}
+                        key={index}
+                        item={item}
+                    />
                 ))}
             </ScrollMenu>
         </ListContainer>

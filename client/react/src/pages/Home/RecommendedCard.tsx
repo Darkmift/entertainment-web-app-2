@@ -1,11 +1,12 @@
 import SVGIcon from '@/components/SVGIcon'
 import useDynamicImageImport from '@/hooks/useDynamicImageImport'
-import { Media } from '@/types'
+import { Media, MediaItemHandler } from '@/types'
 import { useState } from 'react'
 import styled from 'styled-components'
 
 type Props = {
     item: Media
+    handleFavoriteToggle: MediaItemHandler
 }
 type StyledProps = { bgImage: string }
 
@@ -21,6 +22,17 @@ const Card = styled.div<StyledProps>`
     justify-content: space-between;
     border-radius: 8px;
     cursor: pointer;
+
+    @media (max-width: 768px) {
+        min-width: 220px;
+    }
+
+    @media (max-width: 375px) {
+        min-width: 164px;
+        min-height: 110px;
+        padding: 8px;
+ 
+    }
 
     .media-favorite-icon-wrapper {
         display: flex;
@@ -55,6 +67,10 @@ const CardDetails = styled.div`
         mix-blend-mode: normal;
         opacity: 0.75;
 
+        @media (max-width: 375px) {
+            font-size: 11px;
+        }
+
         .media-category-icon {
             margin-left: 8px;
             .media-icon {
@@ -70,6 +86,12 @@ const CardDetails = styled.div`
                     fill: white;
                     width: 12px;
                     height: 12px;
+
+                    @media (max-width: 375px) {
+                        width: 10px;
+                        height: 10px;
+                        top: 3px;
+                    }
                 }
             }
         }
@@ -77,14 +99,16 @@ const CardDetails = styled.div`
     .media-title {
         font-size: 24px;
         font-weight: 500;
+
+        @media (max-width: 375px) {
+            font-size: 14px;
+        }
     }
 `
 
-function RecommendedCard({ item }: Props) {
+function RecommendedCard({ item, handleFavoriteToggle }: Props) {
     const bgImage = useDynamicImageImport(item.thumbnail?.regular?.medium)
-    const [isTrending, setIsrending] = useState(item.isTrending)
-
-    const trendingToggle = () => setIsrending(!isTrending)
+    const trendingToggle = () => handleFavoriteToggle(item)
 
     return (
         <span style={{ display: 'flex', flexDirection: 'column' }}>
@@ -97,7 +121,7 @@ function RecommendedCard({ item }: Props) {
                         className="media-favorite-icon"
                         svgProp={{ width: '12px', height: '12px' }}
                         iconName={
-                            isTrending
+                            item.isBookmarked
                                 ? 'bookmark-checked'
                                 : 'bookmark-unchecked'
                         }
