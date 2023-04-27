@@ -33,9 +33,6 @@ function Home({}: Props) {
     const [category, setCategory] = useState<CategoryName>('all-media')
     const [searchText, setSearchText] = useState('')
 
-    useEffect(() => {
-        console.log('🚀 ~ file: index.tsx:35 ~ Home ~ searchText:', searchText)
-    }, [searchText])
     return (
         <HomeContainer>
             <IconPanel
