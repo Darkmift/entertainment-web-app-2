@@ -1,4 +1,5 @@
 import { useDynamicSvgImport } from '../hooks/useDynamicSvgImport'
+import LoadingSvg from '@/assets/images/loading.svg'
 
 interface IProps {
     iconName: string
@@ -12,7 +13,7 @@ function SvgIcon({ iconName, wrapperStyle, svgProp, className = '' }: IProps) {
 
     return (
         <>
-            {loading && <span>Loading...</span>}
+            {loading && <img src={LoadingSvg} alt="loading" />}
             {ImportedIcon && (
                 <span
                     style={wrapperStyle ? wrapperStyle : {}}
