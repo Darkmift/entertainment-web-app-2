@@ -21,14 +21,19 @@ const Wrapper = styled.div`
     }
 `
 
-function SearchBar({}: Props) {
+function SearchBar({ searchText, onSearchTextChange }: Props) {
     return (
         <Wrapper>
             <SVGIcon
                 iconName="search"
                 svgProp={{ width: '32px', height: '32px' }}
             />
-            <input type="text" placeholder="Search for movies or TV series" />
+            <input
+                type="text"
+                value={searchText}
+                onChange={(e) => onSearchTextChange(e.target.value)}
+                placeholder="Search for movies or TV series"
+            />
         </Wrapper>
     )
 }

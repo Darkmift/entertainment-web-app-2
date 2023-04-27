@@ -2,7 +2,7 @@ import { Media } from '@/types'
 import styled from 'styled-components'
 import RecommendedCard from './RecommendedCard'
 
-type Props = { mode: string; items: Media[] }
+type Props = { mode: string; items: Media[]; searchText?: string }
 
 const ListContainer = styled.div`
     margin-top: 40px;
@@ -18,7 +18,7 @@ const ListContainer = styled.div`
     }
 `
 
-function RecommendedList({ mode, items }: Props) {
+function RecommendedList({ mode, items, searchText = '' }: Props) {
     let title = ''
 
     switch (mode) {
@@ -41,6 +41,10 @@ function RecommendedList({ mode, items }: Props) {
         default:
             title = '??'
             break
+    }
+
+    if (searchText.length > 0) {
+        title = `Found ${items.length} results for ${searchText}`
     }
 
     return (
