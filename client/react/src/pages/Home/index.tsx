@@ -1,29 +1,12 @@
 import IconPanel from 'components/IconPanel'
 import styled from 'styled-components'
 import { SetStateAction, useState } from 'react'
-import { CategoryName } from 'types'
+import { CategoryName, Media } from 'types'
 import SearchBar from 'components/SearchBar'
 import TrendingList from './TrendingList'
+import mediaJson from '@/mock/data.json'
 
-const item = {
-    title: 'Beyond Earth',
-    thumbnail: {
-        trending: {
-            small: './assets/thumbnails/beyond-earth/trending/small.jpg',
-            large: './assets/thumbnails/beyond-earth/trending/large.jpg',
-        },
-        regular: {
-            small: './assets/thumbnails/beyond-earth/regular/small.jpg',
-            medium: './assets/thumbnails/beyond-earth/regular/medium.jpg',
-            large: './assets/thumbnails/beyond-earth/regular/large.jpg',
-        },
-    },
-    year: 2019,
-    category: 'Movie',
-    rating: 'PG',
-    isBookmarked: false,
-    isTrending: true,
-}
+const items = mediaJson as Media[]
 
 type Props = {}
 
@@ -58,7 +41,7 @@ function Home({}: Props) {
                     searchText={searchText}
                     onSearchTextChange={setSearchText}
                 />
-                <TrendingList items={Array(5).fill(item)} />
+                <TrendingList items={items} />
             </div>
         </HomeContainer>
     )
