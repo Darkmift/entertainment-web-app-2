@@ -14,10 +14,7 @@ function useDynamicImage(url: string): string {
             const key = Object.keys(thumbnailImages).find((key) => {
                 return key.endsWith(url.replace('./assets/thumbnails/', ''))
             })
-            console.log(
-                '🚀 ~ file: useDynamicImageImport.ts:17 ~ key ~ key:',
-                key
-            )
+
             return key ? thumbnailImages[key]() : undefined
         }
 

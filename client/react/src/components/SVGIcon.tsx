@@ -9,7 +9,11 @@ interface IProps {
 }
 
 function SvgIcon({ iconName, wrapperStyle, svgProp, className = '' }: IProps) {
-    const { loading, SvgIcon: ImportedIcon } = useDynamicSvgImport(iconName)
+    const {
+        loading,
+        SvgIcon: ImportedIcon,
+        BaseSVG,
+    } = useDynamicSvgImport(iconName)
 
     return (
         <>
@@ -24,6 +28,7 @@ function SvgIcon({ iconName, wrapperStyle, svgProp, className = '' }: IProps) {
                     }
                 >
                     <ImportedIcon {...svgProp} />
+                    {/* {BaseSVG.current} */}
                 </span>
             )}
         </>
