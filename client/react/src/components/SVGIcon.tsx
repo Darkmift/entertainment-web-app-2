@@ -1,5 +1,6 @@
 import { useDynamicSvgImport } from '../hooks/useDynamicSvgImport'
 import LoadingSvg from '@/assets/images/loading.svg'
+import { ReactSVG } from 'react-svg'
 
 interface IProps {
     iconName: string
@@ -27,8 +28,10 @@ function SvgIcon({ iconName, wrapperStyle, svgProp, className = '' }: IProps) {
                             : 'svg-wrapper'
                     }
                 >
-                    <ImportedIcon {...svgProp} />
-                    {/* {BaseSVG.current} */}
+                    <ReactSVG
+                        src={`./assets/images/${iconName}.svg`}
+                        {...svgProp}
+                    />
                 </span>
             )}
         </>
