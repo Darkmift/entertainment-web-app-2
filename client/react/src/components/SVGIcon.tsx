@@ -30,7 +30,7 @@ function SvgIcon({ iconName, wrapperStyle, svgProp, className = '' }: IProps) {
                 >
                     <ReactSVG
                         src={`./assets/images/${iconName}.svg`}
-                        {...svgProp}
+                        // {...svgProp}
                     />
                 </span>
             )}
