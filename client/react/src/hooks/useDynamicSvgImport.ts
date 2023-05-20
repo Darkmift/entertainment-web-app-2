@@ -24,9 +24,9 @@ export function useDynamicSvgImport(
                 importedIconAsStringRef.current = React.createElement('img', {
                     src: dynamicPath,
                 })
-                importedIconRef.current = (
-                    await import(/* @vite-ignore */ dynamicPath)
-                ).ReactComponent // svgr provides ReactComponent for svg url
+                // importedIconRef.current = (
+                //     await import(/* @vite-ignore */ dynamicPath)
+                // ).ReactComponent // svgr provides ReactComponent for svg url
             } catch (err) {
                 setError(err)
                 console.error(err)
