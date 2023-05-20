@@ -9,12 +9,12 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 
 const routes: RouteObject[] = [
+    // {
+    //     path: '/',
+    //     element: <Navigate to="/home" />,
+    // },
     {
         path: '/',
-        element: <Navigate to="/home" />,
-    },
-    {
-        path: '/home',
         element: <Home />,
     },
     {
